@@ -1,13 +1,12 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 
-const VoicemailRecord = ({ status, to, from, duration }) => {
+const VoicemailMessage = ({ folder: status, to, from, length: duration }) => {
 
     return (
-            <TableRow key={duration}>
+            <TableRow>
               <TableCell align="right">{status}</TableCell>
               <TableCell align="right">{to}</TableCell>
               <TableCell align="right">{from}</TableCell>
@@ -16,4 +15,4 @@ const VoicemailRecord = ({ status, to, from, duration }) => {
     );
 }
 
-export default VoicemailRecord;
+export default VoicemailMessage;
