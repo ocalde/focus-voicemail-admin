@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import VoicemailMessage from './VoicemailRecord';
+import VoicemailMessage from './VoicemailMessage';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import utils from './../utils';
+import { fetchVoicemailMessages } from './../fetchUtils';
 import { Paper } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
@@ -30,10 +30,9 @@ import { Button } from '@material-ui/core';
 
 const VoicemailList = () => {
     const [ messages, setMessages ] = useState([]);
-
     const fetchMessages = async () => {
       try {
-        const messages = await utils.fetchVoicemailMessages();
+        const messages = await fetchVoicemailMessages();
         const payload = await messages.data;
         setMessages(payload);
       } catch(e) {
