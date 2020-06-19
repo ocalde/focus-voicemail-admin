@@ -53,7 +53,7 @@ export const populateAsync = action => dispatch => {
             dispatch(populate(data));
         })
         .catch(err => {
-            //Set error
+            dispatch(populate([]));
         });
 };
 

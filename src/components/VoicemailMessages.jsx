@@ -4,7 +4,7 @@ import { Paper, Button, Table, TableBody, TableHead, TableRow, TableCell, Typogr
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import VoicemailMessageRow from './VoicemailMessageRow';
-import { populateAsync, selectMessages, selectError, selectNotification } from '../slices/messagesSlice';
+import { populateAsync, selectMessages, selectError, selectNotification, populate } from '../slices/messagesSlice';
 import { selectVoicemail, setVoicemail } from '../slices/configSlice';
 import SimpleSnackbar from './SimpleSnackbar';
 
@@ -36,6 +36,7 @@ const VoicemailMessages = () => {
 
     const selectAnotherVoicemail = () => {
         dispatch(setVoicemail(null));
+        dispatch(populate([]));
         history.push("/");
     }
 

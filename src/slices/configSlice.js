@@ -7,6 +7,7 @@ export const configSlice = createSlice({
   },
   reducers: {
     setVoicemail: (state, action) => {
+      console.log(action);
       state.voicemailId = action.payload;
     },
   },
