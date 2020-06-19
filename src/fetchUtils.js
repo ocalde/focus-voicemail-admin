@@ -31,9 +31,12 @@ export const fetchVoicemailBoxes = async () => {
     }
 }
 
-export const updateVoicemailStatus = async (data) => {
+export const updateVoicemailStatus = async (voicemailBox, media_id, status) => {
     try {
-        const response = await ky.get(``, { headers });
+        const response = await ky.post(`${SCHEMA_VMBOXES}/${DEFAULT_VMBOX_ID}/messages/${media_id}`, { 
+            headers,
+            json: { "folder": status  } 
+        });
         if(response.headers.get('content-type') === 'application/json') {
             return JSON.parse(response.body);
         }
