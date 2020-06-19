@@ -3,14 +3,16 @@ import { TableRow, TableCell, Select } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDuration } from '../utils';
 import { setStatusAsync, selectMessageUpdating } from '../slices/messagesSlice';
+import { selectVoicemail } from '../slices/configSlice';
 
 const VoicemailMessageRow = ({ media_id, folder: status, to, from, length: duration }) => {
   const dispatch = useDispatch();
   const updating = useSelector(selectMessageUpdating);
+  const voicemail = useSelector(selectVoicemail);
 
   const handleChange = (event) => {
     const value = event.target.value;
-    dispatch(setStatusAsync({ voicemailBox: 'voicemail', media_id, status: value }));
+    dispatch(setStatusAsync({ voicemailBox: voicemail, media_id, status: value }));
   };
 
     return (
