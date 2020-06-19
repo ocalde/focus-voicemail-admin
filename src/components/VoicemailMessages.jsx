@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import VoicemailMessage from './VoicemailMessage';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import { fetchVoicemailMessages } from './../fetchUtils';
-import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Paper, Button, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import VoicemailMessageRow from './VoicemailMessageRow';
+import { fetchVoicemailMessages } from '../fetchUtils';
+import { populate, selectMessages } from '../slices/messagesSlice';
 
   const useStyles = makeStyles((theme) => ({
     table: {
@@ -26,15 +22,15 @@ import { Button } from '@material-ui/core';
     },
   }));
 
-  
-
-const VoicemailList = () => {
-    const [ messages, setMessages ] = useState([]);
+const VoicemailMessages = () => {
+    const messages = useSelector(selectMessages);
+    const dispatch = useDispatch();
+    
     const fetchMessages = async () => {
       try {
         const messages = await fetchVoicemailMessages();
         const payload = await messages.data;
-        setMessages(payload);
+        dispatch(populate(payload));
       } catch(e) {
         console.log(e);
       }
@@ -49,7 +45,7 @@ const VoicemailList = () => {
     if(messages && messages.length > 0) {
       return (
           <Paper className={classes.layout}>
-              <Button variant="contained" color="primary" onClick={() => fetchMessages()}>Refresh</Button>
+              <Button variant="contained" color="primary" onClick={fetchMessages}>Refresh</Button>
               <br /><br />
               <Table className={classes.table} stickyHeader size="small" aria-label="a dense table">
               <TableHead>
@@ -61,7 +57,7 @@ const VoicemailList = () => {
                   </TableRow>
               </TableHead>
               <TableBody>
-                  {messages.map(message => <VoicemailMessage key={message.call_id} {...message} />)}
+                  {messages.map(message => <VoicemailMessageRow key={message.media_id} {...message} />)}
               </TableBody>
               </Table>
             </Paper>
@@ -71,4 +67,4 @@ const VoicemailList = () => {
     }
 }
 
-export default VoicemailList;
+export default VoicemailMessages;

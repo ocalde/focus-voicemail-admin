@@ -1,5 +1,3 @@
-'use strict'
-
 export const isEmpty = (value) => {
     return !value || value == null || value.toString().trim() === '';
 }

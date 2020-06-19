@@ -1,5 +1,5 @@
 import React from 'react';
-import VoicemailList from './VoicemailList';
+import VoicemailMessages from './VoicemailMessages';
 import { Typography } from '@material-ui/core';
 
 const Container = () => {
@@ -7,7 +7,7 @@ const Container = () => {
         <div>
             <Typography align="center" variant="h4">Voicemail Log</Typography>
             <br />
-            <VoicemailList />
+            <VoicemailMessages />
         </div>
     );
 }
